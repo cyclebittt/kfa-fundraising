@@ -235,20 +235,24 @@
     }
 
     .hero-bg {
-      position: absolute; inset: 0; z-index: -2;
-      background-image: url("assets/Da.jpg");
-      background-size: cover; background-position: 50% 40%;
-      transform: scale(1.03);
-      transition: transform 9s cubic-bezier(.08,.4,.1,1);
+  position: absolute; inset: 0; z-index: -2;
+  background-image: url("assets/Da.jpg");
+  background-size: cover;
+  background-position: 50% 40%;
+  transform: scale(1.03);
+  transition: transform 9s cubic-bezier(.08,.4,.1,1);
+  filter: brightness(0.72);
+}
+.hero.loaded .hero-bg { transform: scale(1); }
     }
     .hero.loaded .hero-bg { transform: scale(1); }
 
     /* Hier wurde die Hero dunkler gemacht */
-   .hero-shade {
+  .hero-shade {
   position: absolute; inset: 0; z-index: -1;
   background:
-    linear-gradient(180deg, rgba(32,32,32,.88) 0%, transparent 22%),
-    linear-gradient(0deg, rgba(20,20,20,1) 0%, rgba(20,20,20,.78) 32%, transparent 64%);
+    linear-gradient(180deg, rgba(20,20,20,.82) 0%, rgba(20,20,20,.38) 24%, rgba(20,20,20,.18) 42%, rgba(20,20,20,.08) 60%, transparent 78%),
+    linear-gradient(0deg, rgba(12,12,12,.98) 0%, rgba(12,12,12,.88) 18%, rgba(12,12,12,.68) 38%, rgba(12,12,12,.36) 58%, transparent 82%);
 }
 
     .hero-eyebrow {

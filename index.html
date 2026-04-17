@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KfA Spendenaktion – Kirche für Aschaffenburg</title>
+  <meta name="description" content="Unterstütze die Kirche für Aschaffenburg – Spendenaktion für Gebäude und Ausstattung.">
+  <meta name="theme-color" content="#3f5e5f" />
+  <link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin>
+  <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+
+  <style>
+    /* =====================  THEME  ===================== */
+    :root{
+      --fg:#1f2326; --fg-strong:#111315; --muted:#6d7578; --line:#e9eced; --white:#fff;
+
+      /* Brand */
+      --brand:#3f5e5f; --brand-600:#354f50; --brand-700:#2d4445; --brand-200:#cfdadb;
+
+      /* KfA CI */
+      --kfA-teal:#003b46;
+      --kfA-brand:#3f5e5f;
+      --kfA-gold:#b79f65;
+      --kfA-sage:#9d9e90;
+      --kfA-slate:#5f625e;
+
+      /* Dark */
+      --dark-bg:#263537; --dark-fg:#f3f6f6; --dark-line:#344648;
+
+      --radius:18px; --radius-sm:12px;
+      --container:1180px;
+      --gutter:22px;
+
+      --logo-desktop:120px;
+      --logo-mobile:72px;
+
+      --shadow-1:0 10px 24px rgba(0,0,0,.06);
+      --shadow-2:0 20px 40px rgba(0,0,0,.12);
+      --focus: 0 0 0 3px rgba(63,94,95,.30), 0 0 0 6px rgba(63,94,95,.18);
+    }
+
+    /* =====================  BASE  ===================== */
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    html:focus-within{scroll-behavior:smooth}
+    @media (prefers-reduced-motion:reduce){ html:focus-within{scroll-behavior:auto} *{animation:none!important;transition:none!important} }
+    body{
+      color:var(--fg);
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.6; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      background:#fff;
+    }
+    img{max-width:100%;display:block;height:auto}
+    a{color:var(--fg-strong);text-decoration:none}
+    a:hover{color:var(--brand)}
+    a:focus-visible, button:focus-visible {outline:none; box-shadow:var(--focus); border-radius:12px}
+    .container{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+    h1{font-size:clamp(36px,5vw,60px);line-height:1.08;margin:0 0 14px;color:#fff;letter-spacing:-.015em}
+    h2{font-size:clamp(26px,3.6vw,36px);margin:0 0 14px;color:var(--fg-strong);letter-spacing:-.01em}
+    h3{font-size:20px;margin:0 0 8px}
+    .eyebrow{display:inline-block;letter-spacing:.18em;text-transform:uppercase;color:#dfe7e7;font-weight:800;font-size:12px;margin-bottom:10px}
+    .lead{color:#eef3f3;font-size:18px;margin:0 0 18px;max-width:68ch}
+    .muted{color:var(--muted)}
+    .center{text-align:center}
+    .mono{font-variant-numeric:tabular-nums}
+
+    /* =====================  HEADER  ===================== */
+    .site-header{
+      position:sticky;top:0;z-index:50;background:#ffffffcc;backdrop-filter:saturate(180%) blur(10px);
+      border-bottom:1px solid var(--line);transition:box-shadow .2s ease, background .2s ease;
+    }
+    .site-header.is-scrolled{box-shadow:0 12px 28px rgba(0,0,0,.06); background:#fff}
+
+    .header-inner{
+      display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 0;
+    }
+    @media (min-width:981px){ .header-inner{ gap:10px; padding:12px 0; } }
+
+    .site-header .container{ position:relative; }
+
+    .brand{display:flex;align-items:center;justify-content:center}
+    .brand-logo{height:var(--logo-desktop); width:auto; object-fit:contain; aspect-ratio:360/72;}
+    @media (max-width:980px){ .brand-logo{height:var(--logo-mobile)} }
+
+    .nav{width:100%;display:flex;align-items:center;justify-content:center}
+    .nav-links{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap}
+    .nav a{font-weight:800;color:#1b1f21}
+    .nav a:hover{color:var(--brand)}
+
+    .menu-btn{
+      width:44px;height:44px;border-radius:10px;border:1px solid var(--line);
+      background:#fff;align-items:center;justify-content:center;cursor:pointer;
+      display:none;
+    }
+    .menu-btn span{width:22px;height:2px;background:#222;display:block;position:relative}
+    .menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0;width:22px;height:2px;background:#222}
+    .menu-btn span::before{top:-7px} .menu-btn span::after{top:7px}
+
+    @media (max-width:980px){
+      .menu-btn{display:inline-flex; position:absolute; right:var(--gutter); top:50%; transform:translateY(-50%); z-index:60;}
+      .nav{justify-content:center}
+      .nav-links{
+        position:fixed; left:0; right:0; top:calc(var(--logo-mobile) + 24px);
+        background:#fff;border-top:1px solid var(--line);
+        display:grid;gap:12px;padding:16px var(--gutter);
+        transform:translateY(-10px);opacity:0;pointer-events:none;
+        transition:opacity .15s ease, transform .15s ease
+      }
+      .nav.open .nav-links{transform:none;opacity:1;pointer-events:auto}
+    }
+
+    @media (min-width:981px){
+      .nav-links{position:static;opacity:1;transform:none;pointer-events:auto;display:flex;border:none;padding:0}
+    }
+
+    .donate-cta{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:11px 22px;border-radius:999px;font-weight:900;font-size:15px;
+      background:var(--kfA-brand);color:#fff;border:1px solid var(--kfA-brand);
+      box-shadow:0 8px 18px rgba(63,94,95,.18); transition:transform .12s ease, filter .2s ease;
+    }
+    .donate-cta:hover{filter:brightness(1.07);transform:translateY(-1px);text-decoration:none}
+
+    /* =====================  BUTTONS  ===================== */
+    .btn{
+      --bg:var(--kfA-brand);--fg:#fff;--bd:color-mix(in oklab, var(--kfA-brand) 85%, black);
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:12px 20px;border-radius:999px;border:1px solid var(--bd);
+      background: linear-gradient(180deg, var(--kfA-brand), color-mix(in oklab, var(--kfA-brand) 88%, black));
+      color:var(--fg);font-weight:900;box-shadow:var(--shadow-1);
+      transition:transform .12s ease, filter .2s ease, box-shadow .2s ease; line-height:1;
+    }
+    .btn:hover{
+      filter:brightness(1.04);transform:translateY(-1px);
+      box-shadow: 0 12px 30px rgba(63,94,95,.24), 0 0 0 3px color-mix(in oklab, var(--kfA-gold) 28%, transparent);
+    }
+    .btn-ghost{--bg:#fff;--fg:#111;--bd:color-mix(in oklab, var(--kfA-sage) 40%, #dfe5e6)}
+    .btn-small{padding:10px 14px;font-weight:800;border-radius:12px}
+
+    /* =====================  HERO (Background Image)  ===================== */
+    .hero{
+      position:relative; isolation:isolate;
+      padding: clamp(42px, 6vw, 64px) 0;
+      min-height: clamp(420px, 64vh, 680px);
+      display:flex; align-items:center;
+      color:#fff;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background-image:url("assets/Da.jpg");
+      background-size:cover;
+      background-position: 50% 56%;
+      z-index:-2;
+      filter:none;
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg,
+          rgba(0,0,0,.50) 0%,
+          rgba(0,0,0,.32) 22%,
+          rgba(0,0,0,.20) 42%,
+          rgba(0,0,0,.26) 70%,
+          rgba(0,0,0,.58) 100%);
+      opacity: var(--ov, .58);
+      transition: opacity .6s ease;
+      pointer-events:none;
+      z-index:-1;
+    }
+    @media (max-width:980px){
+      .hero{ min-height: clamp(440px, 68vh, 640px); }
+      .hero::before{ background-position: 50% 62%; }
+    }
+    .hero.hero-dark::after{ --ov:.84; }
+
+    .hero-grid{display:grid;gap:32px}
+    @media(min-width:980px){.hero-grid{grid-template-columns:1.02fr .98fr;align-items:center}}
+
+    .hero-content{opacity:0; transform:translateY(10px); transition:opacity .6s ease, transform .6s ease}
+    .hero.hero-live .hero-content{opacity:1; transform:none}
+
+    .video-wrap{position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.22);box-shadow:0 18px 40px rgba(0,0,0,.22);background:#000}
+    .video{position:absolute;inset:0;width:100%;height:100%}
+
+    .progress{position:relative;height:14px;border-radius:999px;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.35);overflow:hidden;margin:18px 0 12px}
+    .bar{
+      background: linear-gradient(90deg, #cfdadb, var(--kfA-brand) 42%, var(--kfA-teal));
+      box-shadow: inset 0 0 0 1px rgba(63,94,95,.14), 0 6px 18px rgba(63,94,95,.16);
+      width:0%;
+      position:absolute; inset:0;
+    }
+    .progress-meta{display:flex;justify-content:space-between;font-weight:900;align-items:center;gap:12px;color:#fff}
+    .pct-badge{
+      position:absolute; top:-26px; translate: calc(var(--pct,0%) - 50%) 0;
+      left:0; background:#ffffff; color:#1b1f21;
+      border:1px solid #d8e7e7;
+      padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px; white-space:nowrap;
+      box-shadow: 0 8px 22px rgba(63,94,95,.12);
+    }
+
+    .section{padding:92px 0}
+    @media (max-width:980px){ .section{padding:64px 0} }
+
+    .support-grid{display:grid;gap:22px;margin-top:16px}
+    @media(min-width:880px){.support-grid{grid-template-columns:1fr 1fr 1fr}}
+    .support-card{
+      position:relative; padding:22px; border-radius:18px; background:#fff;
+      border:1px solid var(--line); overflow:hidden; isolation:isolate;
+      transition:transform .18s ease, box-shadow .25s ease, border-color .25s ease;
+      box-shadow:0 10px 30px rgba(13, 30, 31, .05);
+    }
+    .support-card:hover{transform:translateY(-4px); box-shadow:0 18px 40px rgba(13,30,31,.10); border-color:#d8e7e7}
+
+    .video-section{
+      padding: 56px 0 8px;
+      background: linear-gradient(180deg, #fff, #f6fbfb);
+      border-top:1px solid var(--line);
+    }
+    .video-card{
+      border-radius:18px; overflow:hidden; border:1px solid var(--line);
+      box-shadow: 0 18px 40px rgba(13,30,31,.08);
+      background:#000;
+    }
+
+    .dark{
+      --dark-bg: color-mix(in oklab, var(--kfA-teal) 36%, #223032);
+      --dark-line: color-mix(in oklab, var(--kfA-slate) 65%, #2f3e40);
+      --dark-fg: #eef5f5;
+      background:
+        radial-gradient(800px 300px at 50% -14%, rgba(255,255,255,.06), transparent 60%),
+        linear-gradient(180deg,
+          color-mix(in oklab, var(--kfA-teal) 32%, #223032),
+          color-mix(in oklab, var(--kfA-brand) 22%, #1f2b2d));
+      color:var(--dark-fg);
+      border-top:1px solid var(--dark-line);border-bottom:1px solid var(--dark-line);
+    }
+    .dark h2,.dark h3{color:#fff}
+
+    .grid2{display:grid;gap:28px}
+    @media(min-width:980px){ .grid2{grid-template-columns:1.05fr .95fr} }
+    .card{
+      border-radius:18px;padding:22px;border:1px solid var(--dark-line);
+      background:
+        radial-gradient(1000px 380px at 50% -18%, rgba(255,255,255,.06), transparent 60%),
+        #223032;
+      box-shadow:none
+    }
+    .grid2 > .card{ justify-self:center; }
+    .qr{
+      display:block; width:clamp(220px, 50vw, 420px); height:auto; margin:12px auto;
+      border-radius:14px; border:2px dashed #6f8788; background:#1b2729; padding:10px;
+    }
+
+    .donate-list{display:grid; gap:14px; margin:12px 0 0; padding:0}
+    .donate-item{list-style:none; background:#1f2b2d; border:1px solid #2b3a3c; border-radius:14px; padding:14px 16px}
+    .donate-item strong{color:#fff}
+    .row{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+    .copy-wrap{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .copy-box{
+      background: color-mix(in oklab, var(--kfA-teal) 16%, #182124);
+      border:1px solid color-mix(in oklab, var(--kfA-slate) 55%, #344244);
+      color:#e7efef; border-radius:10px; padding:8px 10px; font-variant-numeric:tabular-nums;
+    }
+    .copy-btn{cursor:pointer}
+    .copy-btn.btn{--bg:#2a3a3d; --fg:#e7efef; --bd:#3a4b4e}
+    .copy-btn.btn:hover{filter:brightness(1.08)}
+
+    /* === MOBILE IBAN FIX === */
+    @media (max-width: 980px){
+      #iban-text{
+        color:#fff !important;
+        -webkit-text-fill-color:#fff !important; /* iOS Safari */
+      }
+    }
+
+    #faq details{border-radius:16px; overflow:hidden; margin:10px 0; background:#1f2b2d; border:1px solid #2e3d3f; color:#e7efef}
+    #faq summary{list-style:none; cursor:pointer; padding:18px 20px; font-weight:800; display:flex; align-items:center; gap:12px; color:#e7efef}
+    #faq summary::-webkit-details-marker{display:none}
+    #faq summary::after{content:""; margin-left:auto; width:12px; height:12px; flex:0 0 12px;
+      border-right:2px solid #bcd1d2; border-bottom:2px solid #bcd1d2; transform:rotate(-45deg); transition:transform .2s ease}
+    #faq details[open] summary::after{transform:rotate(45deg)}
+    #faq details > div{padding:0 20px 18px 20px; color:#c9d7d7; max-height:0; overflow:hidden; transition:max-height .25s ease}
+    #faq details[open] > div{max-height:320px}
+
+    .site-footer{
+      border-top:1px solid var(--line);
+      background: linear-gradient(0deg, color-mix(in oklab, var(--kfA-sage) 10%, white), #fff);
+    }
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:72px}
+    .social{display:flex;gap:14px;align-items:center}
+    .social a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid var(--line);color:var(--brand)}
+    .social a:hover{background:#f0f6f6;border-color:#d6e4e4}
+    .social svg{width:18px;height:18px}
+
+    .reveal{opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease}
+    .reveal.in{opacity:1; transform:none}
+
+    :root{ --header-offset: calc(var(--logo-desktop) + 36px); }
+    @media (max-width:980px){ :root{ --header-offset: calc(var(--logo-mobile) + 28px); } }
+    .section, [id]{ scroll-margin-top: var(--header-offset); }
+
+    .hero, .hero * { -webkit-text-fill-color: currentColor; }
+
+    .hero.hero-dark::before{ filter: brightness(0.65) !important; }
+    .hero.hero-dark::after{  background: rgba(0,0,0,0.68) !important; }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Kirche für Aschaffenburg – Startseite">
+        <img class="brand-logo" src="assets/white%20logo%20long.png" alt="Logo Kirche für Aschaffenburg" width="360" height="72" decoding="async" />
+      </a>
+
+      <nav class="nav" aria-label="Hauptnavigation">
+        <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen"><span></span></button>
+        <div class="nav-links" id="nav-links">
+          <a href="#support">Unterstützen</a>
+          <a href="#about">Über uns</a>
+          <a href="#faq">FAQ</a>
+          <a class="donate-cta" href="#donate" aria-label="Jetzt spenden">Spenden</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero reveal">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="eyebrow">Spendenkampagne</span>
+          <h1>Lasst uns gemeinsam Kirche bauen</h1>
+          <p class="lead">Hilf uns, Aschaffenburg mit dem Evangelium zu erreichen.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn" href="#donate">Jetzt spenden</a>
+            <a class="btn btn-ghost" href="#support">Mehr erfahren</a>
+          </div>
+
+          <div class="progress" aria-label="Fortschritt der Kampagne">
+            <div class="pct-badge" id="pct-badge">0%</div>
+            <div class="bar" id="bar"></div>
+          </div>
+          <div class="progress-meta" aria-live="polite">
+            <div><strong id="cur">€</strong> erhalten</div>
+            <div>Ziel: <strong id="goal">0 €</strong></div>
+          </div>
+        </div>
+
+        <div></div>
+      </div>
+    </section>
+
+    <!-- VIDEO -->
+    <section class="video-section reveal">
+      <div class="container">
+        <div class="video-card">
+          <div class="video-wrap" style="border:none; box-shadow:none; border-radius:0;">
+            <iframe class="video"
+              src="https://www.youtube-nocookie.com/embed/svgNO7ErcKg?autoplay=0&mute=0&start=0"
+              title="KfA Spenden-Video" frameborder="0" loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUPPORT -->
+    <section id="support" class="section reveal">
+      <div class="container">
+        <h2>So kannst du uns unterstützen:</h2>
+        <div class="support-grid">
+          <article class="support-card">
+            <h3>Beten</h3>
+            <p class="muted">Bete, dass Gott uns die notwendigen Ressourcen schenkt, um das Gebäude zu kaufen und auszustatten.</p>
+          </article>
+
+          <article class="support-card">
+            <h3>Spenden</h3>
+            <p class="muted">Spende einmalig oder regelmäßig, um uns bei der Finanzierung des Gebäudes zu helfen.</p>
+          </article>
+
+          <article class="support-card">
+            <h3>Teilen</h3>
+            <p class="muted">Teile unsere Vision mit anderen, die ein Herz für die Verbreitung des Evangeliums in Deutschland haben.</p>
+            <div class="share-icons" aria-label="Kampagne teilen" style="display:flex;gap:10px;margin-top:10px;">
+              <a id="share-email" href="#" target="_blank" rel="noopener" aria-label="Per E-Mail teilen" title="Per E-Mail teilen" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid var(--line);color:var(--brand)">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="18" height="18"><path d="M3 6h18v12H3z" stroke="currentColor" stroke-width="2"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="2"/></svg>
+              </a>
+              <a id="share-whatsapp" href="#" target="_blank" rel="noopener" aria-label="Per WhatsApp teilen" title="Per WhatsApp teilen" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid var(--line);color:var(--brand)">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="18" height="18">
+                  <path d="M20.5 12a8.5 8.5 0 0 1-12.5 7.4L4 20l.7-3.7A8.5 8.5 0 1 1 20.5 12Z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M9.5 8.8c-.3.7-.3 1.5.7 2.8 1.1 1.5 2.2 2.1 3.3 2.4.6.1 1.2 0 1.6-.3l1-.7c.2-.1.4 0 .5.2l.5 1.1c.1.3 0 .6-.2.8-1 .9-2.3 1.3-3.7 1.1-2.5-.3-5.6-3.4-6-6-.2-1.4.2-2.7 1.1-3.7.2-.2.5-.3.8-.2l1.1.5c.2.1.3.3.2.5l-.7 1Z" fill="currentColor"/>
+                </svg>
+              </a>
+              <a id="share-copy" href="#" aria-label="Link kopieren" title="Link kopieren" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid var(--line);color:var(--brand)">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="18" height="18">
+                  <rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="2"/>
+                  <rect x="4" y="4" width="11" height="11" rx="2" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section reveal">
+      <div class="container">
+        <h2>Über Aschaffenburg und unsere Kirche</h2>
+        <p class="muted" style="max-width:72ch"></p>
+
+        <div class="slideshow" aria-roledescription="carousel" aria-label="Informationsfolien">
+          <div class="slide-frame" style="border:1px solid var(--line);border-radius:18px;overflow:hidden;aspect-ratio:16/9;display:grid;place-items:center;background:#fafafa">
+            <img id="slide-img" src="assets/slide1.png" alt="KfA Info-Folie" width="1280" height="720" decoding="async" loading="lazy">
+          </div>
+          <div class="slide-controls" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px">
+            <button class="ctrl" id="prev" type="button" aria-label="Vorherige Folie" style="appearance:none;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid #dfe5e6;background:#fff;font-weight:800;color:#1b1f21;cursor:pointer;box-shadow:0 8px 20px rgba(13,30,31,.05)">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="14" height="14"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Zurück
+            </button>
+            <div class="dots" id="dots" aria-label="Folienanzeige" style="display:flex;gap:8px;align-items:center;justify-content:center;flex:1"></div>
+            <button class="ctrl" id="next" type="button" aria-label="Nächste Folie" style="appearance:none;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid #dfe5e6;background:#fff;font-weight:800;color:#1b1f21;cursor:pointer;box-shadow:0 8px 20px rgba(13,30,31,.05)">
+              Weiter
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="14" height="14"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DONATE -->
+    <section id="donate" class="section dark reveal">
+      <div class="container grid2">
+        <div>
+          <h2>Spendenmöglichkeiten</h2>
+          <p class="muted">Vielen Dank, dass du die Kirche für Aschaffenburg unterstützt.</p>
+
+          <ul class="donate-list">
+            <li class="donate-item">
+              <strong>Banküberweisung</strong><br>
+              <div class="row" style="margin-top:6px">
+                <div>Empfänger:&nbsp;<span class="muted">Kirche für Aschaffenburg (BEFG K.d.ö.R.)</span></div>
+              </div>
+              <div class="row" style="margin-top:8px">
+                <div class="copy-wrap">
+                  <span class="copy-box mono" id="iban-text">IBAN: DE24 7955 0000 0013 0707 19</span>
+                  <button class="btn btn-small copy-btn" data-copy="#iban-text" aria-label="IBAN kopieren">IBAN kopieren</button>
+                </div>
+              </div>
+              <div class="row" style="margin-top:8px">
+                <div class="copy-wrap">
+                  <span class="copy-box mono" id="bic-text">BIC: BYLADEM1ASA</span>
+                  <button class="btn btn-small copy-btn" data-copy="#bic-text" aria-label="BIC kopieren">BIC kopieren</button>
+                </div>
+              </div>
+              <div class="row" style="margin-top:8px">
+                <div>Bank:&nbsp;<span class="muted">Sparkasse Aschaffenburg-Alzenau</span></div>
+              </div>
+              <div class="row" style="margin-top:8px">
+                <div>Verwendungszweck:&nbsp;<em>Building KfA</em></div>
+              </div>
+            </li>
+
+            <li class="donate-item">
+              <strong>PayPal / Online-Spende</strong>
+              <div class="row" style="margin-top:8px">
+                <a class="btn" href="https://www.paypal.com/donate/?hosted_button_id=JB4C8HXJFJ364" target="_blank" rel="noopener">Zum Spendenlink</a>
+              </div>
+            </li>
+
+            <li class="donate-item">
+              <strong>Daueraufträge / regelmäßige Spenden</strong>
+              <p class="muted" style="margin:8px 0 0">Richte einen Dauerauftrag mit dem Verwendungszweck <em>Building KfA</em> ein.</p>
+            </li>
+          </ul>
+
+          <p class="muted" style="margin-top:12px">Bitte gib für eine Spendenbescheinigung deinen <em>Namen und deine Adresse</em> im Verwendungszweck an.</p>
+        </div>
+
+        <div class="card center" role="group" aria-labelledby="qr-title">
+          <h3 id="qr-title" style="margin:0 0 6px">Per QR-Code spenden</h3>
+          <img class="qr" src="assets/qr-kfa.png" alt="QR-Code für Spenden">
+          <p class="muted">Mit der Kamera-App scannen</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section reveal">
+      <div class="container">
+        <h2>FAQ</h2>
+        <details>
+          <summary><strong>Bekomme ich eine Spendenbescheinigung?</strong></summary>
+          <div><p class="muted">Ja – gib bitte bei Banküberweisungen deine Adresse im Verwendungszweck an.</p></div>
+        </details>
+        <details>
+          <summary><strong>Kann ich monatlich spenden?</strong></summary>
+          <div><p class="muted">Auf jeden Fall. Regelmäßige Spenden helfen uns, verlässlich zu planen.</p></div>
+        </details>
+        <details>
+          <summary><strong>Wer verwaltet die Spenden?</strong></summary>
+          <div><p class="muted">Die Finanzen werden vom Leitungsteam verwaltet und jährlich geprüft.</p></div>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p style="margin:0">© <span id="year"></span> Kirche für Aschaffenburg</p>
+      <nav class="social" aria-label="Soziale Netzwerke">
+        <a href="https://www.facebook.com/KircheAB" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="18" height="18"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.19 8.44 9.94v-7.03H8.08v-2.9h2.36V9.41c0-2.34 1.39-3.63 3.52-3.63 1.02 0 2.1.18 2.1.18v2.32h-1.18c-1.16 0-1.52.73-1.52 1.48v1.78h2.59l-.41 2.9h-2.18V22c4.78-.75 8.44-4.92 8.44-9.94Z" fill="currentColor"/></svg>
+        </a>
+        <a href="https://www.instagram.com/kirche.fuer.aschaffenburg" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="18" height="18"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+        </a>
+        <a href="https://www.youtube.com/kircheAB" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="18" height="18"><path d="M22.54 7.06a3 3 0 0 0-2.11-2.12C18.88 4.5 12 4.5 12 4.5s-6.88 0-8.43.44A3 3 0 0 0 1.46 7.06 31 31 0 0 0 1 12a31 31 0 0 0 .46 4.94 3 3 0 0 0 2.11 2.11C5.12 19.5 12 19.5 12 19.5s6.88 0 8.43-.45a3 3 0 0 0 2.11-2.11c.3-1.56.46-3.26.46-4.94 0-1.69-.16-3.39-.46-4.94Z" fill="currentColor"/><path d="M10 15.5v-7l6 3.5-6 3.5Z" fill="#fff"/></svg>
+        </a>
+      </nav>
+    </div>
+  </footer>
+
+  <script defer>
+    const GOAL=850000, CURRENT=121000;
+    const SLIDES=["assets/Zuhause.png","assets/Start.png","assets/Heute.png"];
+    const SLIDE_INTERVAL_MS=5500;
+
+    const menuBtn=document.getElementById('menu-btn');
+    const nav=document.querySelector('.nav');
+    const links=document.getElementById('nav-links');
+    const header=document.querySelector('.site-header');
+    const setMenu=(open)=>{ nav.classList.toggle('open',open); menuBtn.setAttribute('aria-expanded',String(open)); if(open) links.querySelector('a')?.focus(); };
+    menuBtn?.addEventListener('click',()=>setMenu(!nav.classList.contains('open')));
+    links?.addEventListener('click',(e)=>{ if(e.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') setMenu(false); });
+    const onScroll=()=>header.classList.toggle('is-scrolled',window.scrollY>4); onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+    const fmt=n=>new Intl.NumberFormat('en-GB',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
+    const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
+
+    const animateNumber=(el,to,duration=800,prefix="",suffix="")=>{
+      const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduce){ el.textContent=prefix+to.toLocaleString('en-GB')+suffix; return; }
+      const start=0, diff=to-start; let t0=null;
+      const step=(ts)=>{
+        if(!t0) t0=ts;
+        const p=Math.min(1,(ts-t0)/duration);
+        const val=Math.round(start+diff*p);
+        el.textContent=prefix+val.toLocaleString('en-GB')+suffix;
+        if(p<1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    document.addEventListener('DOMContentLoaded',()=>{
+      const goalEl=document.getElementById('goal');
+      const curEl=document.getElementById('cur');
+      goalEl.textContent=fmt(GOAL);
+
+      const pct=GOAL>0?clamp((CURRENT/GOAL)*100,0,100):0;
+      const bar=document.getElementById('bar');
+      const badge=document.getElementById('pct-badge');
+
+      animateNumber(curEl, CURRENT, 900, "€");
+
+      const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduce){
+        bar.style.width=pct.toFixed(1)+'%';
+        badge.textContent = Math.round(pct)+'%';
+        badge.style.setProperty('--pct', pct+'%');
+      }else{
+        requestAnimationFrame(()=>{ bar.style.transition='width .9s ease'; bar.style.width=pct.toFixed(1)+'%'; });
+        let p=0, end=Math.round(pct);
+        const tick=()=>{ p=Math.min(end,p+1); badge.textContent=p+'%'; badge.style.setProperty('--pct', p+'%'); if(p<end) setTimeout(tick,12); };
+        tick();
+      }
+
+      document.getElementById('year').textContent=new Date().getFullYear();
+
+      const img=document.getElementById('slide-img'), dotsWrap=document.getElementById('dots'),
+            prev=document.getElementById('prev'), next=document.getElementById('next');
+      if(img){
+        let idx=0, timer=null;
+        const renderDots=()=>{ dotsWrap.innerHTML=""; SLIDES.forEach((_,i)=>{ const d=document.createElement('button'); d.type="button"; d.className='dot'+(i===idx?' active':''); d.setAttribute('aria-label','Zu Folie '+(i+1)+' wechseln'); d.style.width='10px'; d.style.height='10px'; d.style.borderRadius='999px'; d.style.background=i===idx?'var(--brand)':'#c8d3d3'; d.style.border='none'; d.onclick=()=>go(i); dotsWrap.appendChild(d); }); };
+        const show=()=>{ if(!SLIDES.length) return; img.src=SLIDES[idx]; img.alt='Folie '+(idx+1); renderDots(); prev.disabled=SLIDES.length<=1; next.disabled=SLIDES.length<=1; };
+        const go=(i)=>{ idx=(i+SLIDES.length)%SLIDES.length; show(); resetTimer(); };
+        const nextSlide=()=>go(idx+1), prevSlide=()=>go(idx-1);
+        const resetTimer=()=>{ const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches; if(timer) clearInterval(timer); timer=reduce?null:setInterval(nextSlide,5500); };
+        prev?.addEventListener('click',prevSlide); next?.addEventListener('click',nextSlide);
+        img.tabIndex=0; img.addEventListener('keydown',(e)=>{ if(e.key==='ArrowRight') nextSlide(); if(e.key==='ArrowLeft') prevSlide(); });
+        let touchX=null; img.addEventListener('touchstart',e=>{ touchX=e.changedTouches[0].clientX; },{passive:true});
+        img.addEventListener('touchend',e=>{ if(touchX===null) return; const dx=e.changedTouches[0].clientX-touchX; if(Math.abs(dx)>40) (dx<0?nextSlide():prevSlide()); touchX=null; },{passive:true});
+        show(); resetTimer();
+      }
+
+      const pageUrl = encodeURIComponent(location.href);
+      const subject = encodeURIComponent("Unterstütze die Kirche für Aschaffenburg");
+      const body = encodeURIComponent("Sei Teil unserer Spendenaktion für ein einladendes Zuhause in Aschaffenburg:\n" + location.href);
+      const text = encodeURIComponent("Sei Teil unserer Spendenaktion für ein einladendes Zuhause in Aschaffenburg: ") + pageUrl;
+
+      const mail = document.getElementById('share-email');
+      const wa   = document.getElementById('share-whatsapp');
+      const copy = document.getElementById('share-copy');
+      if(mail) mail.href = `mailto:?subject=${subject}&body=${body}`;
+      if(wa)   wa.href   = `https://wa.me/?text=${text}`;
+      if(copy){
+        copy.addEventListener('click',(e)=>{
+          e.preventDefault();
+          navigator.clipboard.writeText(location.href).then(()=>{ copy.title="Kopiert!"; });
+        });
+      }
+
+      const hero=document.querySelector('.hero');
+      if(hero){
+        const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if(reduce){
+          hero.classList.add('hero-live','hero-dark');
+        }else{
+          setTimeout(()=> hero.classList.add('hero-live','hero-dark'), 3000);
+        }
+      }
+    });
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!prefersReduced){
+      const io=new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{threshold:0.12});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    }else{
+      document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+    }
+  </script>
+</body>
+</html>

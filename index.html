@@ -11,23 +11,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin />
 
-  <!--
-    Brandbook fonts:
-    – Helvetica Neue → closest Google Fonts: Archivo Black / Bebas / or we use
-      'Barlow' at 700/900 which reads nearly identical for display.
-      Actually best match available: 'Outfit' 700/900 for headlines,
-      'DM Sans' 300/400 for body (Glacial Indifference proxy).
-    – Glacial Indifference: not on Google Fonts.
-      Best open-source proxy: DM Sans 300/400 — geometric, open, calm.
-  -->
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
 
   <style>
-    /* ═══════════════════════════════════════
-       BRANDBOOK DESIGN TOKENS
-    ═══════════════════════════════════════ */
     :root {
-      /* Brandbook exact values */
       --charcoal:        #333132;
       --deep-charcoal:   #202020;
       --off-white:       #F6F6F4;
@@ -37,7 +24,6 @@
       --forest-dark:     #1e3329;
       --white:           #ffffff;
 
-      /* Derived text roles */
       --t-on-dark:       #F6F6F4;
       --t-on-dark-mid:   rgba(246,246,244,.65);
       --t-on-dark-ghost: rgba(246,246,244,.4);
@@ -46,23 +32,19 @@
       --t-muted:         #6b6b68;
       --t-ghost:         #9b9b98;
 
-      /* Surface roles */
       --s-white:         #ffffff;
       --s-off-white:     #F6F6F4;
       --s-stone:         #D0D0CC;
       --s-border:        #dededd;
       --s-border-dark:   rgba(255,255,255,.1);
 
-      /* Layout */
       --container:       1100px;
       --gutter:          clamp(20px, 5vw, 56px);
       --sv:              clamp(72px, 10vw, 120px);
 
-      /* Focus */
       --focus:           0 0 0 2px var(--white), 0 0 0 4px var(--forest);
     }
 
-    /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     @media (prefers-reduced-motion: reduce) {
@@ -84,8 +66,6 @@
     a:focus-visible, button:focus-visible { outline: none; box-shadow: var(--focus); border-radius: 4px; }
     .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
 
-    /* ── Typography — Brandbook ── */
-    /* Brandbook: Helvetica Neue Bold/Black for display → Barlow 800/900 */
     .hn { font-family: 'Barlow', system-ui, sans-serif; }
 
     h1, h2, h3 {
@@ -95,7 +75,6 @@
       letter-spacing: -.01em;
     }
 
-    /* Hero headline — full Brandbook scale */
     .hero-title {
       font-size: clamp(52px, 9vw, 120px);
       font-weight: 900;
@@ -121,13 +100,11 @@
       letter-spacing: -.01em;
     }
 
-    /* Brandbook: Glacial Indifference for body → DM Sans 300/400 */
     .body-lg { font-size: clamp(16px, 1.6vw, 18px); line-height: 1.72; font-weight: 300; }
     .body-md { font-size: 15px; line-height: 1.7; font-weight: 300; }
     .body-sm { font-size: 13px; line-height: 1.6; font-weight: 300; }
     .muted { color: var(--t-muted); }
 
-    /* Brandbook label style: wide letterspacing, caps */
     .label {
       font-family: 'Barlow', sans-serif;
       font-size: 10px;
@@ -138,7 +115,6 @@
     }
     .label-dark { color: var(--t-ghost); }
 
-    /* Decorative large numeral — as used throughout the brandbook */
     .deco-num {
       font-family: 'Barlow', sans-serif;
       font-weight: 900;
@@ -153,7 +129,6 @@
       color: var(--s-stone);
     }
 
-    /* ── Navigation ── */
     .site-nav {
       position: sticky;
       top: 0;
@@ -177,7 +152,6 @@
       height: 34px;
       width: auto;
       object-fit: contain;
-      /* White logo on dark nav */
       filter: brightness(0) invert(1);
     }
     .site-nav.at-light .nav-logo {
@@ -218,7 +192,6 @@
     }
     .nav-donate:hover { background: var(--forest-dark); transform: translateY(-1px); }
 
-    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -250,9 +223,6 @@
       .nav-donate { margin: 10px 0 0; padding: 12px 14px; text-align: center; border-radius: 3px; }
     }
 
-    /* ── HERO ──
-       Full-bleed photo, text anchored bottom-left (as in brandbook flyer template)
-    ── */
     .hero {
       position: relative;
       isolation: isolate;
@@ -273,22 +243,20 @@
     }
     .hero.loaded .hero-bg { transform: scale(1); }
 
-    /* Gradient: bottom-heavy so text stays legible. Top-left vignette for logo. */
+    /* Hier wurde die Hero dunkler gemacht */
     .hero-shade {
       position: absolute; inset: 0; z-index: -1;
       background:
-        linear-gradient(180deg, rgba(32,32,32,.7) 0%, transparent 22%),
-        linear-gradient(0deg, rgba(20,20,20,.92) 0%, rgba(20,20,20,.5) 32%, transparent 64%);
+        linear-gradient(180deg, rgba(32,32,32,.78) 0%, transparent 22%),
+        linear-gradient(0deg, rgba(20,20,20,.96) 0%, rgba(20,20,20,.62) 32%, transparent 64%);
     }
 
-    /* Campaign label bar top-left, matching brandbook flyer top margin */
     .hero-eyebrow {
       margin-bottom: 16px;
     }
 
     .hero-title-wrap { margin-bottom: 32px; max-width: 900px; }
 
-    /* Progress sits between headline and CTA — gives social proof before ask */
     .hero-progress { max-width: 520px; margin-bottom: 36px; }
 
     .progress-row {
@@ -325,7 +293,6 @@
       color: rgba(246,246,244,.8);
     }
 
-    /* Thin gold line — understated, like the brandbook's decorative rule */
     .progress-track {
       height: 2px;
       background: rgba(255,255,255,.15);
@@ -338,7 +305,6 @@
       background: var(--sage-light);
       transition: width 1.6s cubic-bezier(.22,1,.36,1);
     }
-    /* Dot at tip */
     .progress-fill::after {
       content: '';
       position: absolute; right: -4px; top: 50%; transform: translateY(-50%);
@@ -363,7 +329,6 @@
 
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
-    /* Scroll hint */
     .scroll-cue {
       position: absolute;
       bottom: 28px; right: var(--gutter);
@@ -375,7 +340,6 @@
     }
     @keyframes nudge { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
 
-    /* ── Buttons ── */
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
       font-family: 'Barlow', sans-serif;
@@ -427,9 +391,6 @@
 
     .btn-sm { padding: 10px 18px; font-size: 12px; }
 
-    /* ── CONTEXT BAR ──
-       Anchors the abstract campaign in a scripture + concrete numbers.
-    ── */
     .context-bar {
       background: var(--deep-charcoal);
       border-bottom: 1px solid rgba(255,255,255,.06);
@@ -478,15 +439,10 @@
       margin-top: 4px;
     }
 
-    /* ── WHY SECTION ──
-       Three columns styled as the brandbook "Pillars":
-       dark left, light center, warm right — no border-radius cards.
-    ── */
     .why-section { background: var(--s-off-white); }
 
     .why-grid {
       display: grid;
-      /* Brandbook: no gap between cells, full-bleed flush panels */
     }
     @media (min-width: 680px) {
       .why-grid { grid-template-columns: 1.1fr 1fr .9fr; }
@@ -496,13 +452,11 @@
       padding: clamp(36px, 5vw, 60px) clamp(28px, 4vw, 48px);
       position: relative;
       overflow: hidden;
-      /* No border-radius — Brandbook uses sharp edges */
     }
     .why-panel:nth-child(1) { background: var(--deep-charcoal); color: var(--off-white); }
     .why-panel:nth-child(2) { background: var(--charcoal); color: var(--off-white); }
     .why-panel:nth-child(3) { background: var(--forest); color: var(--off-white); }
 
-    /* Large background number — exact Brandbook device */
     .panel-deco {
       position: absolute;
       bottom: -12px; right: 8px;
@@ -543,7 +497,6 @@
       position: relative; z-index: 1;
     }
 
-    /* ── MEDIA SECTION ── */
     .media-section {
       padding: var(--sv) 0;
       background: var(--s-off-white);
@@ -566,7 +519,6 @@
       .media-grid { grid-template-columns: 1.15fr 1fr; gap: 20px; align-items: start; }
     }
 
-    /* Video: no rounded corners — Brandbook aesthetic */
     .video-shell {
       position: relative;
       aspect-ratio: 16/9;
@@ -577,7 +529,6 @@
       position: absolute; inset: 0; width: 100%; height: 100%; border: none;
     }
 
-    /* Slideshow */
     .slide-shell {
       position: relative;
       aspect-ratio: 4/3;
@@ -617,14 +568,10 @@
       cursor: pointer;
       transition: background .2s, width .28s cubic-bezier(.4,0,.2,1);
       flex-shrink: 0; width: 14px;
-      border-radius: 0; /* Brandbook: no pill shapes */
+      border-radius: 0;
     }
     .dot.active { width: 28px; background: var(--charcoal); }
 
-    /* ── WAYS TO HELP ──
-       Three vertical strips — matching brandbook's "no-card" aesthetic.
-       Left accent line instead of rounded card.
-    ── */
     .help-section { padding: var(--sv) 0; background: var(--s-white); }
 
     .help-grid { display: grid; gap: 0; }
@@ -673,10 +620,6 @@
     }
     .share-btn:hover { background: var(--s-stone); color: var(--t-primary); border-color: var(--s-stone); }
 
-    /* ── DONATE SECTION ──
-       Deep charcoal — focus environment.
-       Bank transfer as dominant option; PayPal and recurring secondary.
-    ── */
     .donate-section {
       padding: var(--sv) 0;
       background: var(--deep-charcoal);
@@ -685,7 +628,6 @@
       overflow: hidden;
     }
 
-    /* Subtle teal glow — brandbook is monochromatic, accent is minimal */
     .donate-section::before {
       content: '';
       position: absolute;
@@ -703,7 +645,6 @@
       .donate-layout { grid-template-columns: 1fr 360px; gap: 72px; align-items: start; }
     }
 
-    /* Option rows: no card radius — table-row feel matches financial register */
     .donate-options { border-top: 1px solid rgba(255,255,255,.08); }
 
     .donate-option {
@@ -779,7 +720,6 @@
       padding-left: 14px;
     }
 
-    /* QR Panel */
     .qr-panel {
       background: rgba(255,255,255,.04);
       border: 1px solid rgba(255,255,255,.07);
@@ -821,7 +761,6 @@
     }
     .trust-li svg { color: var(--sage-light); flex-shrink: 0; opacity: .65; margin-top: 1px; }
 
-    /* ── FAQ ── */
     .faq-section { padding: var(--sv) 0; background: var(--s-off-white); }
 
     .faq-layout {
@@ -870,7 +809,6 @@
     .faq-body-inner { overflow: hidden; }
     .faq-body-inner p { font-size: 14px; font-weight: 300; color: var(--t-muted); line-height: 1.72; padding-bottom: 18px; }
 
-    /* ── FOOTER ── */
     .site-footer {
       background: var(--deep-charcoal);
       border-top: 1px solid rgba(255,255,255,.06);
@@ -892,7 +830,6 @@
     }
     .social-btn:hover { color: var(--off-white); border-color: rgba(255,255,255,.2); background: rgba(255,255,255,.06); }
 
-    /* ── Scroll Reveal ── */
     .fade { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
     .fade.in { opacity: 1; transform: none; }
     .fade-l { opacity: 0; transform: translateX(-16px); transition: opacity .6s ease, transform .6s ease; }
@@ -906,7 +843,6 @@
 </head>
 <body>
 
-<!-- ═══ NAVIGATION ═══ -->
 <header class="site-nav" id="site-nav">
   <div class="container nav-inner">
     <a href="#top" aria-label="KfA – Home">
@@ -917,17 +853,15 @@
       <span class="hbar"></span><span class="hbar"></span><span class="hbar"></span>
     </button>
     <nav class="nav-group" id="nav-links" aria-label="Main">
-      <a href="#why"    class="nav-link">Vision</a>
-      <a href="#media"  class="nav-link">About</a>
-      <a href="#help"   class="nav-link">Get Involved</a>
-      <a href="#faq"    class="nav-link">FAQ</a>
+      <a href="#why" class="nav-link">Vision</a>
+      <a href="#media" class="nav-link">About</a>
+      <a href="#help" class="nav-link">Get Involved</a>
+      <a href="#faq" class="nav-link">FAQ</a>
       <a href="#donate" class="nav-donate">Donate</a>
     </nav>
   </div>
 </header>
 
-
-<!-- ═══ HERO ═══ -->
 <section class="hero" id="top" aria-labelledby="hero-h1">
   <div class="hero-bg" role="presentation"></div>
   <div class="hero-shade" role="presentation"></div>
@@ -943,7 +877,6 @@
       </h1>
     </div>
 
-    <!-- Progress: social proof before the ask -->
     <div class="hero-progress">
       <div class="progress-row">
         <div>
@@ -973,8 +906,6 @@
   </div>
 </section>
 
-
-<!-- ═══ CONTEXT BAR ═══ -->
 <div class="context-bar">
   <div class="container">
     <div class="context-inner">
@@ -1000,10 +931,7 @@
   </div>
 </div>
 
-
-<!-- ═══ WHY A BUILDING ═══ -->
 <section id="why">
-  <!-- Section header above panels -->
   <div style="background:var(--s-off-white);padding:clamp(52px,7vw,90px) 0 clamp(36px,4vw,56px)">
     <div class="container fade">
       <span class="label label-dark" style="display:block;margin-bottom:12px">Why This Matters</span>
@@ -1013,7 +941,6 @@
     </div>
   </div>
 
-  <!-- Three flush panels — no border-radius, no shadows -->
   <div class="why-grid fade" data-d="1">
     <div class="why-panel">
       <span class="panel-deco" aria-hidden="true">1</span>
@@ -1036,8 +963,6 @@
   </div>
 </section>
 
-
-<!-- ═══ MEDIA ═══ -->
 <section id="media" class="media-section">
   <div class="container">
     <div class="media-header fade">
@@ -1083,8 +1008,6 @@
   </div>
 </section>
 
-
-<!-- ═══ WAYS TO HELP ═══ -->
 <section id="help" class="help-section">
   <div class="container">
     <div style="margin-bottom:clamp(36px,5vw,60px)" class="fade">
@@ -1123,8 +1046,6 @@
   </div>
 </section>
 
-
-<!-- ═══ DONATE ═══ -->
 <section id="donate" class="donate-section">
   <div class="container">
     <div class="donate-layout">
@@ -1194,7 +1115,6 @@
         </p>
       </div>
 
-      <!-- QR + trust signals -->
       <div class="fade-r">
         <div class="qr-panel">
           <span class="qr-panel-label">Scan to Donate</span>
@@ -1227,8 +1147,6 @@
   </div>
 </section>
 
-
-<!-- ═══ FAQ ═══ -->
 <section id="faq" class="faq-section">
   <div class="container">
     <div class="faq-layout">
@@ -1299,8 +1217,6 @@
   </div>
 </section>
 
-
-<!-- ═══ FOOTER ═══ -->
 <footer class="site-footer">
   <div class="container footer-inner">
     <span class="footer-copy">© <span id="yr"></span> Kirche für Aschaffenburg</span>
@@ -1318,7 +1234,6 @@
   </div>
 </footer>
 
-
 <script>
 (function () {
   'use strict';
@@ -1333,10 +1248,8 @@
     style: 'currency', currency: 'EUR', maximumFractionDigits: 0
   }).format(n);
 
-  /* ── Hero bg zoom ── */
   setTimeout(() => $('.hero')?.classList.add('loaded'), 50);
 
-  /* ── Nav: dark when over hero, switch to light background variant below ── */
   const nav    = $('#site-nav');
   const heroEl = $('#top');
   const tickNav = () => {
@@ -1346,7 +1259,6 @@
   tickNav();
   window.addEventListener('scroll', tickNav, { passive: true });
 
-  /* ── Mobile menu ── */
   const ham  = $('#hamburger');
   const menu = $('#nav-links');
   const setMenu = open => {
@@ -1358,7 +1270,6 @@
   menu?.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
-  /* ── Progress ── */
   const pct      = Math.min((CURRENT / GOAL) * 100, 100);
   const fillEl   = $('#progress-fill');
   const pctEl    = $('#pct-text');
@@ -1395,7 +1306,6 @@
     }
   }
 
-  /* ── Slideshow ── */
   const shell    = $('#slide-shell');
   const dotsWrap = $('#slide-dots');
   const prevBtn  = $('#prev');
@@ -1450,7 +1360,6 @@
     if (!REDUCED) timer = setInterval(() => go(idx + 1), 5500);
   }
 
-  /* ── Copy buttons ── */
   document.querySelectorAll('.copy-action').forEach(btn => {
     btn.addEventListener('click', () => {
       const el = document.getElementById(btn.dataset.copy);
@@ -1465,7 +1374,6 @@
     });
   });
 
-  /* ── Share ── */
   const url  = encodeURIComponent(location.href);
   const subj = encodeURIComponent('KfA Building Campaign');
   const body = encodeURIComponent('Help build a church in Aschaffenburg: ' + location.href);
@@ -1484,7 +1392,6 @@
     });
   }
 
-  /* ── FAQ ── */
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const open = btn.getAttribute('aria-expanded') === 'true';
@@ -1499,11 +1406,9 @@
     });
   });
 
-  /* ── Year ── */
   const yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();
 
-  /* ── Scroll reveal ── */
   if (REDUCED) {
     document.querySelectorAll('.fade, .fade-l, .fade-r').forEach(el => el.classList.add('in'));
   } else {
